@@ -1,14 +1,11 @@
 package ;
 
 import flash.system.System;
-
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
-
 import flixel.text.FlxText;
 import flixel.util.FlxDestroyUtil;
-
 using flixel.util.FlxSpriteUtil;
 
 class Menu extends FlxState
@@ -30,11 +27,11 @@ class Menu extends FlxState
 		_title.alignment = "center";
 		_title.screenCenter(true,false);
 
-		_play = new FlxText(0,40,0,"Play",22);
+		_play = new FlxText(0,100,0,"Play",22);
 		_play.alignment = "center";
 		_play.screenCenter(true,false);
 
-		_credits = new FlxText(0,50,0,"Credits",22);
+		_credits = new FlxText(0,150,0,"Credits",22);
 		_credits.alignment = "center";
 		_credits.screenCenter(true,false);
 
@@ -43,7 +40,7 @@ class Menu extends FlxState
 		add(_credits);
 
 		#if desktop
-		_exit = new FlxText(0,60,0,"Exit",22);
+		_exit = new FlxText(0,200,0,"Exit",22);
 		_exit.alignment = "center";
 		_exit.screenCenter(true,false);
 		add(_exit);
@@ -51,7 +48,7 @@ class Menu extends FlxState
 
 		_pointer = new FlxSprite();
 		_pointer.loadGraphic("assets/images/pointer.png");
-		_pointer.x = _play.x - _pointer.width - 10;
+		_pointer.x = _play.x - _pointer.width - 30;
 		add(_pointer);
 
 		super.create();

@@ -46,6 +46,15 @@ class Terminal extends FlxState
 
 		_typeText.start();
 
+		if (FlxG.sound.music == null)
+		{
+			#if flash
+			FlxG.sound.playMusic("assets/music/song.mp3",1,true);
+			#else
+			FlxG.sound.playMusic("assets/music/song.ogg",1,true);
+			#end
+		}
+		
 		super.create();
 	}
 
