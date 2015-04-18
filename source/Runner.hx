@@ -5,20 +5,26 @@ import flixel.tile.FlxTilemap;
 import flixel.FlxCamera;
 import flixel.FlxState;
 
-class PilonRun extends FlxState
+class Runner extends FlxState
 {
 	private var _player:Player;
-	private var _map:TiledLoader;
+	private var _map:String;
 	private var _mGround:FlxTilemap;
+
+	public function new(map:String)
+	{
+		super();
+		_map = map;
+	}
 
 	override public function create():Void
 	{
-		_map = new TiledLoader("assets/data/pilon.tmx");
-		_mGround = _map.loadTilemap("assets/images/ground_extra.png",16,16,"ground");
+		var _tiled = new TiledLoader("assets/data/"+_map);
+		_mGround = _tiled.loadTilemap("assets/images/ground_extra.png",16,16,"ground");
 		add(_mGround);
 
 		_player = new Player();
-		_map.loadEntities(placeEntities,"entities");
+		_tiled.loadEntities(placeEntities,"entities");
 		add(_player);
 
 		FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN,1);

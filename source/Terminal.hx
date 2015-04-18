@@ -5,9 +5,22 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.text.FlxTypeText;
 
-class Intro extends FlxState
+class Terminal extends FlxState
 {
+	private var _text:String;
+	private var _menu:Bool;
+	private var _map:String;
+
 	private var _typeText:FlxTypeText;
+
+	public function new(text:String="Who deserves love?",menu:Bool=true,map:String=null)
+	{
+		super();
+
+		_text = text;
+		_menu = menu;
+		_map = map;
+	}
 
 	override public function create():Void
 	{
@@ -16,7 +29,7 @@ class Intro extends FlxState
 		var square:FlxSprite = new FlxSprite(10,10);
 		square.makeGraphic(FlxG.width-20, FlxG.height - 76, 0xff333333);
 
-		_typeText = new FlxTypeText(15,10,FlxG.width-30,"Mark ran straight for the west pilon without stopping ... ");
+		_typeText = new FlxTypeText(15,10,FlxG.width-30,_text);
 
 		_typeText.delay = 0.1;
 		_typeText.eraseDelay = 0.2;
@@ -40,7 +53,8 @@ class Intro extends FlxState
 	{
 		if (FlxG.keys.justPressed.SPACE || FlxG.mouse.justPressed)
 		{
-			FlxG.switchState(new PilonRun());
+			if(_menu) FlxG.switchState(new Menu());
+			else FlxG.switchState(new Runner(_map));
 		}
 
 		super.update();
