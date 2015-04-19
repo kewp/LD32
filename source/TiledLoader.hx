@@ -12,21 +12,26 @@ class TiledLoader
 	private var _xml:Xml;
 	private var _fast:Fast;
 
+	private var _width:Int;
+	private var _height:Int;
+	private var _tilewidth:Int;
+	private var _tileheight:Int;
+
 	public function new(level:String)
 	{
 		_level = level;
 		_xml = Parser.parse(Assets.getText(level));
 		_fast = new Fast(_xml.firstElement());
 
-		var width = Std.parseInt(_fast.att.width);
-		var height = Std.parseInt(_fast.att.height);
-		var tilewidth = Std.parseInt(_fast.att.tilewidth);
-		var tileheight = Std.parseInt(_fast.att.tileheight);
+		_width = Std.parseInt(_fast.att.width);
+		_height = Std.parseInt(_fast.att.height);
+		_tilewidth = Std.parseInt(_fast.att.tilewidth);
+		_tileheight = Std.parseInt(_fast.att.tileheight);
 
-		FlxG.camera.setBounds(0,0,width*tilewidth,height*tileheight,true);
+		FlxG.camera.setBounds(0,0,_width*_tilewidth,_height*_tileheight,true);
 	}
 
-	public function loadTilemap(path:String, width:Int, height:Int, layer:String):FlxTilemap
+	public function loadTilemap(path:String, layer:String):FlxTilemap
 	{
 		var tileMap:FlxTilemap = new FlxTilemap();
 
@@ -38,15 +43,36 @@ class TiledLoader
 
 		var data:String = layerXml.node.data.innerData;
 
-		tileMap.loadMap(data.substring(1,data.length-1),path,width,height);
+		tileMap.loadMap(data.substring(1,data.length-1),path,_tilewidth,_tileheight);
 
 		return tileMap;
 	}
 
-	public function loadEntities(entityLoadCallback:Xml->Void, entityLayer:String):Void
+	public function loadEntities(callback:Xml->Void, group:String):Void
 	{
-		for (group in _fast.nodes.objectgroup)
-			for (a in group.elements)
-				entityLoadCallback(a.x);
+		for (g in _fast.nodes.objectgroup)
+			if (g.att.name==group)
+				for (e in g.elements)
+					callback(e.x);
+	}
+
+	public function getObject(group:String,type:String):Xml
+	{
+		var object = null;
+		for (g in _fast.nodes.objectgroup)
+			if (g.att.name==group)
+				for (e in g.elements)
+					if (e.att.type==type) object = e.x;
+		return object;
+	}
+
+	public function getObjects(group:String,type:String):Array<Xml>
+	{
+		var objects = new Array();
+		for (g in _fast.nodes.objectgroup)
+			if (g.att.name==group)
+				for (e in g.elements)
+					if (e.att.type==type) objects.push(e.x);
+		return objects;
 	}
 }

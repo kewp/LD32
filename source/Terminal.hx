@@ -1,5 +1,6 @@
 package ;
 
+import flixel.FlxObject;
 import flixel.FlxSprite;
 
 class Terminal extends FlxSprite

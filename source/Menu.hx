@@ -85,7 +85,7 @@ class Menu extends FlxState
 			switch(_select)
 			{
 				case 1:
-					if(_runner==null) _runner = new Runner();
+					if(_runner==null) _runner = new Runner("grassy");
 					FlxG.switchState(_runner);
 				case 2: FlxG.switchState(new Credits());
 				case 3: System.exit(0);
