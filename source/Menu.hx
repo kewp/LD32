@@ -20,6 +20,7 @@ class Menu extends FlxState
 
 	private var _pointer:FlxSprite;
 	private var _select:Int = 1; // which menu item is selected
+	private var _runner:FlxState;
 
 	override public function create():Void
 	{
@@ -27,11 +28,14 @@ class Menu extends FlxState
 		_title.alignment = "center";
 		_title.screenCenter(true,false);
 
-		_play = new FlxText(0,100,0,"Play",22);
+		var start = 100;
+		#if desktop start = 80; #end
+
+		_play = new FlxText(0,start,0,"Play",22);
 		_play.alignment = "center";
 		_play.screenCenter(true,false);
 
-		_credits = new FlxText(0,150,0,"Credits",22);
+		_credits = new FlxText(0,start+50,0,"Credits",22);
 		_credits.alignment = "center";
 		_credits.screenCenter(true,false);
 
@@ -40,7 +44,7 @@ class Menu extends FlxState
 		add(_credits);
 
 		#if desktop
-		_exit = new FlxText(0,200,0,"Exit",22);
+		_exit = new FlxText(0,start+100,0,"Exit",22);
 		_exit.alignment = "center";
 		_exit.screenCenter(true,false);
 		add(_exit);
@@ -81,7 +85,9 @@ class Menu extends FlxState
 		{
 			switch(_select)
 			{
-				case 1: FlxG.switchState(new Terminal("Mark ran straight for the west pilon without stopping ...",false,"pilon.tmx"));
+				case 1:
+					if(_runner==null) FlxG.switchState(new Talk("Mark ran straight for the west pilon ...",new Runner()));
+					else FlxG.switchState(_runner);
 				case 2: FlxG.switchState(new Credits());
 				case 3: System.exit(0);
 			}

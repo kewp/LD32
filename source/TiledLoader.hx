@@ -20,6 +20,10 @@ class TiledLoader
 
 		var width = Std.parseInt(_fast.att.width);
 		var height = Std.parseInt(_fast.att.height);
+		var tilewidth = Std.parseInt(_fast.att.tilewidth);
+		var tileheight = Std.parseInt(_fast.att.tileheight);
+
+		FlxG.camera.setBounds(0,0,width*tilewidth,height*tileheight,true);
 	}
 
 	public function loadTilemap(path:String, width:Int, height:Int, layer:String):FlxTilemap
@@ -39,10 +43,10 @@ class TiledLoader
 		return tileMap;
 	}
 
-	public function loadEntities(entityLoadCallback:String->Xml->Void, entityLayer:String):Void
+	public function loadEntities(entityLoadCallback:Xml->Void, entityLayer:String):Void
 	{
 		for (group in _fast.nodes.objectgroup)
 			for (a in group.elements)
-				entityLoadCallback(a.att.type,a.x);
+				entityLoadCallback(a.x);
 	}
 }
