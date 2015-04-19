@@ -24,7 +24,7 @@ class Menu extends FlxState
 
 	override public function create():Void
 	{
-		_title = new FlxText(0,20,0,"Terminal", 22);
+		_title = new FlxText(0,20,0,"Terminal",22);
 		_title.alignment = "center";
 		_title.screenCenter(true,false);
 
@@ -50,8 +50,7 @@ class Menu extends FlxState
 		add(_exit);
 		#end
 
-		_pointer = new FlxSprite();
-		_pointer.loadGraphic("assets/images/pointer.png");
+		_pointer = new FlxText(0,0,0,">",22);
 		_pointer.x = _play.x - _pointer.width - 30;
 		add(_pointer);
 
@@ -86,8 +85,8 @@ class Menu extends FlxState
 			switch(_select)
 			{
 				case 1:
-					if(_runner==null) FlxG.switchState(new Talk("Mark ran straight for the west pilon ...",new Runner()));
-					else FlxG.switchState(_runner);
+					if(_runner==null) _runner = new Runner();
+					FlxG.switchState(_runner);
 				case 2: FlxG.switchState(new Credits());
 				case 3: System.exit(0);
 			}

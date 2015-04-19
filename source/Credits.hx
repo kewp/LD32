@@ -7,33 +7,22 @@ using flixel.util.FlxSpriteUtil;
 
 class Credits extends FlxState
 {
-	private var _title:FlxText;
-	private var _haxe:FlxText;
-	private var _tut:FlxText;
-	private var _term:FlxText;
-
 	override public function create():Void
 	{
-		_title = new FlxText(0,20,0,"Credits", 22);
+		var _title = new FlxText(0,20,0,"Credits",30);
 		_title.alignment = "center";
 		_title.screenCenter(true,false);
 
-		_haxe = new FlxText(0,80,0,"Coded with HaxeFlixel", 14);
-		_haxe.alignment = "center";
-		_haxe.screenCenter(true,false);
-
-		_tut = new FlxText(0,130,0,"Base from haxeflixel.com tut", 14);
-		_tut.alignment = "center";
-		_tut.screenCenter(true,false);
-
-		_term = new FlxText(0,180,0,"Terminal from FlxTypeText demo", 14);
-		_term.alignment = "center";
-		_term.screenCenter(true,false);
+		var _credits = new FlxText(20,80,0,
+"Coded with HaxeFlixel
+Base from haxeflixel.com 
+  dunegon crawler tut
+Terminal from FlxTypeText 
+  demo",16);
+		_credits.alignment = "left";
 
 		add(_title);
-		add(_haxe);
-		add(_tut);
-		add(_term);
+		add(_credits);
 	}
 
 	override public function update():Void

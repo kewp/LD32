@@ -1,66 +1,48 @@
 package ;
 
 import flixel.FlxG;
+import flixel.util.FlxPoint;
 import flixel.FlxSprite;
-import flixel.FlxState;
+import flixel.group.FlxTypedGroup;
 import flixel.addons.text.FlxTypeText;
+import flixel.util.FlxDestroyUtil;
+import flixel.FlxCamera;
 
-class Talk extends FlxState
+using flixel.util.FlxSpriteUtil;
+
+class Talk extends FlxTypedGroup<FlxSprite>
 {
-	private var _text:String;
-	public var _runner:FlxState;
+	private var _back:FlxSprite;
+	private var _type:FlxTypeText;
 
-	private var _typeText:FlxTypeText;
-
-	public function new(text:String="Who deserves love?",runner:FlxState=null)
+	public function new(text:String="Who deserves love?")
 	{
 		super();
 
-		_text = text;
-		_runner = runner;
+		_back = new FlxSprite().makeGraphic(FlxG.width,FlxG.height,0xff131c1b);
+		_back.screenCenter(true,true);
+		_back.scrollFactor.set();		// not effected by camera
+
+		_type = new FlxTypeText(_back.x+15,_back.x+10,FlxG.width-30,text);
+		_type.delay = 0.1;
+		_type.showCursor = true;
+		_type.cursorBlinkSpeed = 1.0;
+		_type.prefix = "> ";
+		_type.waitTime = 2.0;
+		_type.setTypingVariation(0.75, true);
+		_type.color = 0x8811EE11;
+		_type.skipKeys = ["SPACE"];
+		_type.start();
+		_type.scrollFactor.set();		// not effected by camera
+
+		add(_back);
+		add(_type);
 	}
 
-	override public function create():Void
+	override public function destroy()
 	{
-		FlxG.cameras.bgColor = 0xff131c1b;
-
-		_typeText = new FlxTypeText(15,10,FlxG.width-30,_text);
-
-		_typeText.delay = 0.1;
-		_typeText.eraseDelay = 0.2;
-		_typeText.showCursor = true;
-		_typeText.cursorBlinkSpeed = 1.0;
-		_typeText.prefix = "> ";
-		_typeText.autoErase = true;
-		_typeText.waitTime = 2.0;
-		_typeText.setTypingVariation(0.75, true);
-		_typeText.color = 0x8811EE11;
-		_typeText.skipKeys = ["SPACE"];
-
-		add(_typeText);
-
-		_typeText.start();
-
-		if (FlxG.sound.music == null)
-		{
-			#if flash
-			FlxG.sound.playMusic("assets/music/song.mp3",1,true);
-			#else
-			FlxG.sound.playMusic("assets/music/song.ogg",1,true);
-			#end
-		}
-
-		super.create();
-	}
-
-	override public function update():Void
-	{
-		if (FlxG.keys.anyJustPressed(["SPACE","ENTER"]) || FlxG.mouse.justPressed)
-		{
-			if(_runner==null) FlxG.switchState(new Menu());
-			else FlxG.switchState(_runner);
-		}
-
-		super.update();
+		super.destroy();
+		_back = FlxDestroyUtil.destroy(_back);
+		_type = FlxDestroyUtil.destroy(_type);
 	}
 }
