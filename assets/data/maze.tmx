@@ -209,6 +209,6 @@
  </layer>
  <objectgroup name="entities">
   <object id="1" name="grassy" type="entrance" x="392" y="272"/>
-  <object id="2" name="I don't know what to do next ." type="terminal" x="1056" y="520"/>
+  <object id="2" name="I don't know what to do next ." type="terminal" x="600" y="504"/>
  </objectgroup>
 </map>
