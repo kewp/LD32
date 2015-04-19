@@ -8,7 +8,7 @@ class Intro extends FlxState
 	private var _text:String;
 	private var _talk:Talk;
 
-	public function new(text:String="Who deserves love?")
+	public function new(text:String="Who deserves love ?")
 	{
 		super();
 
