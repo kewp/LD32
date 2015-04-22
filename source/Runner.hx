@@ -34,9 +34,7 @@ class Runner extends FlxState
 	override public function create():Void
 	{
 		var _tiled = new TiledLoader("assets/data/"+_map+".tmx");
-		_mGround = _tiled.loadTilemap("assets/images/"+_map+"_extra.png","ground");
-		_mGround.setTileProperties(1,FlxObject.NONE);
-		_mGround.setTileProperties(2,FlxObject.ANY);
+		_mGround = _tiled.loadTilemap("assets/images/"+_map+".png","ground");
 		add(_mGround);
 
 		_player = new Player();

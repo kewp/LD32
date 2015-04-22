@@ -5,6 +5,7 @@ import flixel.tile.FlxTilemap;
 import haxe.xml.Fast;
 import haxe.xml.Parser;
 import openfl.Assets;
+import flixel.FlxSprite;
 
 class TiledLoader
 {
@@ -43,7 +44,17 @@ class TiledLoader
 
 		var data:String = layerXml.node.data.innerData;
 
-		tileMap.loadMap(data.substring(1,data.length-1),path,_tilewidth,_tileheight);
+		// set tile index to index-1
+		var remap = new Array<Int>();
+		remap.push(0);
+		for (i in 0...cast(new FlxSprite(path).width/_tilewidth,Int))
+			remap.push(i);
+		tileMap.setCustomTileMappings(remap);
+		
+		// remove first and last characters (line breaks)
+		data = data.substring(1,data.length-1);
+
+		tileMap.loadMap(data,path,_tilewidth,_tileheight,0,0,0); // set draw index to 0
 
 		return tileMap;
 	}
