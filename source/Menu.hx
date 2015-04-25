@@ -1,6 +1,9 @@
 package ;
 
+#if desktop
 import flash.system.System;
+#end
+
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
@@ -91,6 +94,10 @@ class Menu extends FlxState
 				case 3: System.exit(0);
 			}
 		}
+
+		#if desktop
+		if (FlxG.keys.justPressed.ESCAPE) System.exit(0);
+		#end
 	}
 
 	override public function destroy():Void

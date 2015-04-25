@@ -3,6 +3,10 @@ package ;
 import flixel.FlxG;
 import flixel.FlxState;
 
+#if desktop
+import flash.system.System;
+#end
+
 class Intro extends FlxState
 {
 	private var _text:String;
@@ -34,10 +38,14 @@ class Intro extends FlxState
 
 	override public function update():Void
 	{
-		if (FlxG.keys.anyJustPressed(["SPACE","ENTER"]) || FlxG.mouse.justPressed)
+		if (FlxG.keys.anyJustPressed(["SPACE","ENTER"]) #if mouse || FlxG.mouse.justPressed #end )
 		{
 			FlxG.switchState(new Menu());
 		}
+
+		#if desktop
+		if (FlxG.keys.justPressed.ESCAPE) System.exit(0);
+		#end
 
 		super.update();
 	}

@@ -92,7 +92,7 @@ class Runner extends FlxState
 			FlxG.overlap(_player,_entrances,playerTouchEntrance);
 			FlxG.collide(_player,_mGround);
 		}
-		else if(FlxG.keys.anyJustPressed(["ENTER"]) #if mouse || FlxG.mouse.justPressed #end )
+		else if(FlxG.keys.anyJustPressed(["ENTER"])||FlxG.mouse.justPressed)
 		{
 			_talk = flixel.util.FlxDestroyUtil.destroy(_talk);
 			FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN, 1);

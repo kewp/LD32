@@ -27,7 +27,7 @@ Terminal from FlxTypeText
 
 	override public function update():Void
 	{
-		if (FlxG.keys.anyJustPressed(["ESCAPE","ENTER","SPACE"]) #if mouse || FlxG.mouse.justPressed #end )
+		if (FlxG.keys.anyJustPressed(["ESCAPE","ENTER","SPACE"]) || FlxG.mouse.justPressed)
 		{
 			FlxG.switchState(new Menu());
 		}
