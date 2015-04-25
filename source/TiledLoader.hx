@@ -47,7 +47,7 @@ class TiledLoader
 		// set tile index to index-1
 		var remap = new Array<Int>();
 		remap.push(0);
-		for (i in 0...cast(new FlxSprite(path).width/_tilewidth,Int))
+		for (i in 0...cast(new FlxSprite(0,0,path).width/_tilewidth,Int))
 			remap.push(i);
 		tileMap.setCustomTileMappings(remap);
 		
